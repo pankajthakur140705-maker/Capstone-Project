@@ -2,22 +2,22 @@ import { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
+// 🔥 BASE URL (CHANGE ONCE ONLY)
+const API = "https://bandhu-ai-backend.onrender.com";
+
 function App() {
   // ---------------------------
-  // SCHEME SEARCH STATE
+  // STATE
   // ---------------------------
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [schemeResponse, setSchemeResponse] = useState(null);
 
-  // ---------------------------
-  // CHAT STATE
-  // ---------------------------
   const [message, setMessage] = useState("");
   const [chatResponse, setChatResponse] = useState(null);
 
   // ---------------------------
-  // SCHEME SEARCH API
+  // SCHEME SEARCH
   // ---------------------------
   const searchSchemes = () => {
     if (!query.trim()) return;
@@ -25,14 +25,12 @@ function App() {
     setLoading(true);
     setSchemeResponse(null);
 
-    fetch("http://127.0.0.1:8000/search", {
+    fetch(`${API}/search`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        query: query,
-        filters: {},
+        query,
+        filters: {}
       }),
     })
       .then((res) => res.json())
@@ -47,16 +45,14 @@ function App() {
   };
 
   // ---------------------------
-  // CHAT API (UPDATED)
+  // CHAT API
   // ---------------------------
   const sendMessage = () => {
     if (!message.trim()) return;
 
-    fetch("http://127.0.0.1:8000/ai", {
+    fetch(`${API}/chat`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         user_id: "user1",
         message: message,
@@ -70,124 +66,95 @@ function App() {
   };
 
   // ---------------------------
-  // UI
+  // UI CARD
   // ---------------------------
+  const renderScheme = (s, index) => (
+    <div
+      key={index}
+      style={{
+        background: "#222",
+        padding: "10px",
+        marginTop: "10px",
+        borderRadius: "10px",
+      }}
+    >
+      <h4>{s.name}</h4>
+      <p>{s.description}</p>
+      <small>{s.category}</small>
+    </div>
+  );
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h2>Bandhu AI 🚀</h2>
 
-        {/* ========================= */}
-        {/* SCHEME SEARCH SECTION */}
-        {/* ========================= */}
+        {/* ---------------- SCHEME SEARCH ---------------- */}
         <div style={{ marginBottom: "40px" }}>
           <h3>Scheme Search</h3>
 
           <input
-            type="text"
-            placeholder="Enter query (e.g. education scheme)"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            placeholder="Enter query..."
             style={{
               padding: "10px",
               width: "300px",
               borderRadius: "8px",
-              border: "none",
-              marginBottom: "10px",
             }}
           />
 
           <br />
 
           <button onClick={searchSchemes} style={{ padding: "10px 20px" }}>
-            Search Schemes
+            Search
           </button>
 
           {loading && <p>Loading...</p>}
 
-          {/* SCHEME RESULTS */}
-          {schemeResponse && (
-            <div style={{ marginTop: "20px", maxWidth: "600px", textAlign: "left" }}>
+          {schemeResponse?.results && (
+            <div style={{ marginTop: "20px", textAlign: "left" }}>
               <h3>Results</h3>
-
-              {schemeResponse.schemes.map((s, index) => (
-                <div
-                  key={index}
-                  style={{
-                    background: "#222",
-                    padding: "10px",
-                    marginTop: "10px",
-                    borderRadius: "10px",
-                  }}
-                >
-                  <h4>{s.name}</h4>
-                  <p>{s.description}</p>
-                  <small>{s.category}</small>
-                </div>
-              ))}
+              {schemeResponse.results.map(renderScheme)}
             </div>
           )}
         </div>
 
-        {/* ========================= */}
-        {/* CHAT SECTION */}
-        {/* ========================= */}
+        {/* ---------------- CHAT ---------------- */}
         <div style={{ marginTop: "50px" }}>
           <h3>AI Chat</h3>
 
           <input
-            type="text"
             value={message}
-            placeholder="Ask something..."
             onChange={(e) => setMessage(e.target.value)}
-            style={{
-              padding: "10px",
-              width: "300px",
-              borderRadius: "8px",
-            }}
+            placeholder="Ask something..."
+            style={{ padding: "10px", width: "300px" }}
           />
 
           <button onClick={sendMessage} style={{ marginLeft: "10px" }}>
             Send
           </button>
 
-          {/* CHAT RESPONSE */}
           {chatResponse && (
             <div style={{ marginTop: "20px", maxWidth: "600px" }}>
-              
-              {/* NORMAL CHAT */}
+              {/* CHAT */}
               {chatResponse.type === "chat" && (
                 <p style={{ color: "lightblue" }}>
-                  {chatResponse.reply}
+                  {chatResponse.response}
                 </p>
               )}
 
-              {/* SCHEME RESPONSE */}
-              {chatResponse.type === "scheme_response" && (
+              {/* SCHEMES */}
+              {chatResponse.type === "scheme_recommendation" && (
                 <div>
                   <p style={{ color: "lightgreen" }}>
-                    {chatResponse.reply}
+                    {chatResponse.response}
                   </p>
 
-                  {chatResponse.results.map((s, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        background: "#222",
-                        padding: "10px",
-                        marginTop: "10px",
-                        borderRadius: "10px",
-                      }}
-                    >
-                      <h4>{s.name}</h4>
-                      <p>{s.description}</p>
-                      <small>{s.category}</small>
-                    </div>
-                  ))}
+                  {chatResponse.data?.map(renderScheme)}
                 </div>
               )}
-
             </div>
           )}
         </div>
