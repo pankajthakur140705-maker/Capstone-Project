@@ -1,0 +1,38 @@
+[
+  {
+    "name": "PM Kisan Samman Nidhi",
+    "category": "Agriculture",
+    "description": "Financial support for farmers to improve agricultural income and stability",
+    "keywords": ["farmer", "agriculture", "kisan", "income support", "farming", "crop"],
+    "eligibility_tags": ["farmer", "rural", "low_income"],
+    "min_age": 18,
+    "max_age": 100,
+    "max_income": 600000,
+    "type": "government",
+    "priority": 5
+  },
+  {
+    "name": "National Scholarship Portal",
+    "category": "Education",
+    "description": "Central platform for scholarships for school and college students across India",
+    "keywords": ["scholarship", "education", "student", "college", "school", "study", "fees"],
+    "eligibility_tags": ["student", "low_income", "merit"],
+    "min_age": 16,
+    "max_age": 35,
+    "max_income": 300000,
+    "type": "government",
+    "priority": 8
+  },
+  {
+    "name": "Ayushman Bharat",
+    "category": "Health",
+    "description": "Free health insurance coverage for economically weaker families",
+    "keywords": ["health", "hospital", "insurance", "medical", "treatment", "doctor", "free treatment"],
+    "eligibility_tags": ["low_income", "family", "health_support"],
+    "min_age": 0,
+    "max_age": 100,
+    "max_income": 500000,
+    "type": "government",
+    "priority": 10
+  }
+]
