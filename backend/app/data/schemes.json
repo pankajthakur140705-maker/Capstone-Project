@@ -1,38 +1,481 @@
 [
   {
+    "id": 1,
     "name": "PM Kisan Samman Nidhi",
     "category": "Agriculture",
-    "description": "Financial support for farmers to improve agricultural income and stability",
-    "keywords": ["farmer", "agriculture", "kisan", "income support", "farming", "crop"],
-    "eligibility_tags": ["farmer", "rural", "low_income"],
+    "description": "Financial support scheme for farmers to improve agricultural income and stability.",
+    "benefits": "₹6000 yearly income support in 3 installments.",
+    "eligibility": "Small and marginal farmers.",
+    "keywords": [
+      "farmer",
+      "agriculture",
+      "kisan",
+      "income support",
+      "farming",
+      "crop"
+    ],
+    "eligibility_tags": [
+      "farmer",
+      "rural",
+      "low_income"
+    ],
+    "documents_required": [
+      "Aadhaar Card",
+      "Bank Passbook",
+      "Land Records"
+    ],
+    "application_link": "https://pmkisan.gov.in",
+    "state": "All India",
     "min_age": 18,
     "max_age": 100,
     "max_income": 600000,
     "type": "government",
-    "priority": 5
+    "priority": 10
   },
+
   {
+    "id": 2,
+    "name": "Pradhan Mantri Fasal Bima Yojana",
+    "category": "Agriculture",
+    "description": "Crop insurance scheme protecting farmers against crop losses.",
+    "benefits": "Insurance coverage for crop damage and natural disasters.",
+    "eligibility": "Farmers growing notified crops.",
+    "keywords": [
+      "crop insurance",
+      "farmer",
+      "insurance",
+      "farming",
+      "agriculture"
+    ],
+    "eligibility_tags": [
+      "farmer",
+      "crop_loss",
+      "rural"
+    ],
+    "documents_required": [
+      "Aadhaar Card",
+      "Land Documents",
+      "Bank Account"
+    ],
+    "application_link": "https://pmfby.gov.in",
+    "state": "All India",
+    "min_age": 18,
+    "max_age": 100,
+    "max_income": 1000000,
+    "type": "government",
+    "priority": 9
+  },
+
+  {
+    "id": 3,
+    "name": "Kisan Credit Card Scheme",
+    "category": "Agriculture",
+    "description": "Provides farmers easy access to short-term loans.",
+    "benefits": "Low-interest agricultural loans.",
+    "eligibility": "Farmers involved in agriculture and allied activities.",
+    "keywords": [
+      "loan",
+      "farmer",
+      "credit",
+      "kcc",
+      "agriculture"
+    ],
+    "eligibility_tags": [
+      "farmer",
+      "loan_support"
+    ],
+    "documents_required": [
+      "Aadhaar Card",
+      "Land Records",
+      "Bank Account"
+    ],
+    "application_link": "https://www.myscheme.gov.in",
+    "state": "All India",
+    "min_age": 18,
+    "max_age": 75,
+    "max_income": 1000000,
+    "type": "government",
+    "priority": 8
+  },
+
+  {
+    "id": 4,
     "name": "National Scholarship Portal",
     "category": "Education",
-    "description": "Central platform for scholarships for school and college students across India",
-    "keywords": ["scholarship", "education", "student", "college", "school", "study", "fees"],
-    "eligibility_tags": ["student", "low_income", "merit"],
+    "description": "Central platform for scholarships for school and college students across India.",
+    "benefits": "Financial assistance for education expenses.",
+    "eligibility": "School and college students meeting scholarship criteria.",
+    "keywords": [
+      "scholarship",
+      "education",
+      "student",
+      "college",
+      "school",
+      "study",
+      "fees"
+    ],
+    "eligibility_tags": [
+      "student",
+      "low_income",
+      "merit"
+    ],
+    "documents_required": [
+      "Aadhaar Card",
+      "Income Certificate",
+      "Marksheet"
+    ],
+    "application_link": "https://scholarships.gov.in",
+    "state": "All India",
     "min_age": 16,
     "max_age": 35,
     "max_income": 300000,
     "type": "government",
+    "priority": 10
+  },
+
+  {
+    "id": 5,
+    "name": "PM YASASVI Scholarship",
+    "category": "Education",
+    "description": "Scholarship scheme for OBC, EBC and DNT students.",
+    "benefits": "Scholarship support for higher education.",
+    "eligibility": "Eligible students from backward communities.",
+    "keywords": [
+      "scholarship",
+      "student",
+      "education",
+      "yasasvi"
+    ],
+    "eligibility_tags": [
+      "student",
+      "scholarship",
+      "education"
+    ],
+    "documents_required": [
+      "Caste Certificate",
+      "Income Certificate",
+      "Aadhaar Card"
+    ],
+    "application_link": "https://yet.nta.ac.in",
+    "state": "All India",
+    "min_age": 12,
+    "max_age": 25,
+    "max_income": 250000,
+    "type": "government",
     "priority": 8
   },
+
   {
+    "id": 6,
     "name": "Ayushman Bharat",
-    "category": "Health",
-    "description": "Free health insurance coverage for economically weaker families",
-    "keywords": ["health", "hospital", "insurance", "medical", "treatment", "doctor", "free treatment"],
-    "eligibility_tags": ["low_income", "family", "health_support"],
+    "category": "Healthcare",
+    "description": "Free health insurance coverage for economically weaker families.",
+    "benefits": "₹5 lakh health insurance coverage per family.",
+    "eligibility": "Economically weaker families identified under SECC.",
+    "keywords": [
+      "health",
+      "hospital",
+      "insurance",
+      "medical",
+      "treatment",
+      "doctor"
+    ],
+    "eligibility_tags": [
+      "low_income",
+      "family",
+      "health_support"
+    ],
+    "documents_required": [
+      "Aadhaar Card",
+      "Ration Card"
+    ],
+    "application_link": "https://pmjay.gov.in",
+    "state": "All India",
     "min_age": 0,
     "max_age": 100,
     "max_income": 500000,
     "type": "government",
     "priority": 10
+  },
+
+  {
+    "id": 7,
+    "name": "Pradhan Mantri Awas Yojana",
+    "category": "Housing",
+    "description": "Affordable housing scheme for low-income families.",
+    "benefits": "Subsidy for house construction and purchase.",
+    "eligibility": "Economically weaker and middle-income families.",
+    "keywords": [
+      "house",
+      "housing",
+      "home",
+      "loan",
+      "subsidy"
+    ],
+    "eligibility_tags": [
+      "housing",
+      "low_income",
+      "family"
+    ],
+    "documents_required": [
+      "Income Certificate",
+      "Aadhaar Card",
+      "Bank Details"
+    ],
+    "application_link": "https://pmaymis.gov.in",
+    "state": "All India",
+    "min_age": 18,
+    "max_age": 70,
+    "max_income": 1800000,
+    "type": "government",
+    "priority": 9
+  },
+
+  {
+    "id": 8,
+    "name": "MGNREGA",
+    "category": "Employment",
+    "description": "Employment guarantee scheme for rural households.",
+    "benefits": "100 days guaranteed wage employment.",
+    "eligibility": "Adult members of rural households.",
+    "keywords": [
+      "job",
+      "employment",
+      "rural",
+      "work",
+      "labour"
+    ],
+    "eligibility_tags": [
+      "employment",
+      "rural",
+      "low_income"
+    ],
+    "documents_required": [
+      "Aadhaar Card",
+      "Job Card",
+      "Bank Account"
+    ],
+    "application_link": "https://nrega.nic.in",
+    "state": "All India",
+    "min_age": 18,
+    "max_age": 65,
+    "max_income": 500000,
+    "type": "government",
+    "priority": 9
+  },
+
+  {
+    "id": 9,
+    "name": "PM Kaushal Vikas Yojana",
+    "category": "Skill Development",
+    "description": "Skill training scheme for youth employment.",
+    "benefits": "Free skill development and certification.",
+    "eligibility": "Indian youth seeking skill training.",
+    "keywords": [
+      "skill",
+      "training",
+      "job",
+      "employment",
+      "youth"
+    ],
+    "eligibility_tags": [
+      "student",
+      "employment",
+      "youth"
+    ],
+    "documents_required": [
+      "Aadhaar Card",
+      "Education Certificate"
+    ],
+    "application_link": "https://www.pmkvyofficial.org",
+    "state": "All India",
+    "min_age": 15,
+    "max_age": 45,
+    "max_income": 1000000,
+    "type": "government",
+    "priority": 8
+  },
+
+  {
+    "id": 10,
+    "name": "Startup India",
+    "category": "Startup",
+    "description": "Government initiative supporting startups and innovation.",
+    "benefits": "Tax benefits, funding support and mentorship.",
+    "eligibility": "Recognized startups in India.",
+    "keywords": [
+      "startup",
+      "business",
+      "innovation",
+      "entrepreneur"
+    ],
+    "eligibility_tags": [
+      "startup",
+      "business"
+    ],
+    "documents_required": [
+      "Business Registration",
+      "PAN Card",
+      "Bank Account"
+    ],
+    "application_link": "https://www.startupindia.gov.in",
+    "state": "All India",
+    "min_age": 18,
+    "max_age": 60,
+    "max_income": 5000000,
+    "type": "government",
+    "priority": 8
+  },
+
+  {
+    "id": 11,
+    "name": "Pradhan Mantri Mudra Yojana",
+    "category": "Financial Support",
+    "description": "Loan scheme for small businesses and entrepreneurs.",
+    "benefits": "Business loans up to ₹10 lakh.",
+    "eligibility": "Small business owners and entrepreneurs.",
+    "keywords": [
+      "loan",
+      "business",
+      "mudra",
+      "startup",
+      "finance"
+    ],
+    "eligibility_tags": [
+      "business",
+      "entrepreneur"
+    ],
+    "documents_required": [
+      "Aadhaar Card",
+      "PAN Card",
+      "Business Proof"
+    ],
+    "application_link": "https://www.mudra.org.in",
+    "state": "All India",
+    "min_age": 18,
+    "max_age": 65,
+    "max_income": 2000000,
+    "type": "government",
+    "priority": 9
+  },
+
+  {
+    "id": 12,
+    "name": "Beti Bachao Beti Padhao",
+    "category": "Women",
+    "description": "Scheme promoting education and welfare of girls.",
+    "benefits": "Awareness and educational support for girl children.",
+    "eligibility": "Girl children and families.",
+    "keywords": [
+      "girl",
+      "women",
+      "education",
+      "female"
+    ],
+    "eligibility_tags": [
+      "women",
+      "education"
+    ],
+    "documents_required": [
+      "Birth Certificate",
+      "Aadhaar Card"
+    ],
+    "application_link": "https://wcd.nic.in",
+    "state": "All India",
+    "min_age": 0,
+    "max_age": 25,
+    "max_income": 1000000,
+    "type": "government",
+    "priority": 8
+  },
+
+  {
+    "id": 13,
+    "name": "Sukanya Samriddhi Yojana",
+    "category": "Women",
+    "description": "Savings scheme for girl child future education and marriage.",
+    "benefits": "High-interest savings account benefits.",
+    "eligibility": "Parents of girl child below 10 years.",
+    "keywords": [
+      "girl child",
+      "savings",
+      "women",
+      "education"
+    ],
+    "eligibility_tags": [
+      "women",
+      "family"
+    ],
+    "documents_required": [
+      "Birth Certificate",
+      "Aadhaar Card"
+    ],
+    "application_link": "https://www.indiapost.gov.in",
+    "state": "All India",
+    "min_age": 0,
+    "max_age": 10,
+    "max_income": 2000000,
+    "type": "government",
+    "priority": 8
+  },
+
+  {
+    "id": 14,
+    "name": "National Pension Scheme",
+    "category": "Senior Citizens",
+    "description": "Retirement savings scheme for Indian citizens.",
+    "benefits": "Monthly pension after retirement.",
+    "eligibility": "Indian citizens aged 18–70 years.",
+    "keywords": [
+      "pension",
+      "retirement",
+      "senior citizen"
+    ],
+    "eligibility_tags": [
+      "senior_citizen",
+      "retirement"
+    ],
+    "documents_required": [
+      "PAN Card",
+      "Aadhaar Card",
+      "Bank Account"
+    ],
+    "application_link": "https://www.npscra.nsdl.co.in",
+    "state": "All India",
+    "min_age": 18,
+    "max_age": 70,
+    "max_income": 10000000,
+    "type": "government",
+    "priority": 7
+  },
+
+  {
+    "id": 15,
+    "name": "Accessible India Campaign",
+    "category": "Disability",
+    "description": "Initiative for accessibility and empowerment of persons with disabilities.",
+    "benefits": "Accessibility support and inclusive infrastructure.",
+    "eligibility": "Persons with disabilities.",
+    "keywords": [
+      "disability",
+      "accessible",
+      "support",
+      "inclusive"
+    ],
+    "eligibility_tags": [
+      "disabled",
+      "support"
+    ],
+    "documents_required": [
+      "Disability Certificate",
+      "Aadhaar Card"
+    ],
+    "application_link": "https://depwd.gov.in",
+    "state": "All India",
+    "min_age": 0,
+    "max_age": 100,
+    "max_income": 1000000,
+    "type": "government",
+    "priority": 7
   }
 ]

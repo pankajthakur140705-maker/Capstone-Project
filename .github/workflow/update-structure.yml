@@ -1,0 +1,28 @@
+name: Auto Update Structure File
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-structure:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install tree command
+        run: sudo apt-get update && sudo apt-get install tree -y
+
+      - name: Generate structure.txt
+        run: tree -a > structure.txt
+
+      - name: Commit updated structure
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add structure.txt
+          git commit -m "auto: update structure.txt" || echo "No changes to commit"
+          git push

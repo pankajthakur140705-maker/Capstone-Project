@@ -1,71 +1,160 @@
-from typing import Dict, List, Any
-from app.services.scheme_service import search_schemes
+from typing import List, Dict, Any, Optional
+import math
+from datetime import datetime
 
 
-# -----------------------------
-# MEMORY ANALYZER
-# -----------------------------
-def build_context(messages: List[str]) -> str:
-    return " | ".join(messages[-5:])
-
-
-# -----------------------------
-# PROFILE EXTRACTION (RULE + AI HYBRID)
-# -----------------------------
-def extract_user_profile(message: str) -> Dict:
+# =====================================================
+# 🧠 USER INTENT + PROFILE DETECTION ENGINE
+# =====================================================
+def detect_user_profile(message: str) -> str:
     msg = message.lower()
 
-    profile = {
-        "age": None,
-        "income": None,
-        "is_student": False,
-        "is_farmer": False
+    profiles = {
+        "student": ["student", "study", "college", "school", "scholarship"],
+        "farmer": ["farmer", "farming", "crop", "agriculture"],
+        "job_seeker": ["job", "unemployed", "work", "employment"],
+        "business": ["business", "startup", "self-employed", "entrepreneur"]
     }
 
-    # age detection
-    words = msg.split()
-    for i, w in enumerate(words):
-        if w.isdigit():
-            val = int(w)
-            if 10 <= val <= 100:
-                profile["age"] = val
+    for profile, keywords in profiles.items():
+        if any(k in msg for k in keywords):
+            return profile
 
-    # income detection (simple upgrade)
-    if "low income" in msg:
-        profile["income"] = 200000
-    elif "medium income" in msg:
-        profile["income"] = 500000
-    elif "high income" in msg:
-        profile["income"] = 1000000
-
-    # role detection
-    if "student" in msg:
-        profile["is_student"] = True
-
-    if "farmer" in msg or "farming" in msg:
-        profile["is_farmer"] = True
-
-    return profile
+    return "general"
 
 
-# -----------------------------
-# AI EXPLANATION ENGINE
-# -----------------------------
-def explain_scheme(scheme: Dict, profile: Dict) -> str:
+# =====================================================
+# 🧠 FEATURE SCORING ENGINE (MULTI-FACTOR AI RANKING)
+# =====================================================
+def score_scheme(user: Dict[str, Any], scheme: Dict[str, Any], profile: str):
+
+    age = user.get("age", 0)
+    income = user.get("income", 10**9)
+
+    min_age = scheme.get("min_age", 0)
+    max_income = scheme.get("max_income", 10**9)
+
+    score = 0
     reasons = []
 
-    if profile.get("age"):
-        if scheme.get("min_age", 0) <= profile["age"]:
-            reasons.append("matches your age")
+    # -------------------------
+    # AGE FIT (30%)
+    # -------------------------
+    if age >= min_age:
+        score += 30
+        reasons.append("Eligible age range matched")
+    else:
+        penalty = (min_age - age) * 2
+        score += max(0, 30 - penalty)
+        reasons.append(f"Age gap detected: {min_age - age}")
 
-    if profile.get("income"):
-        if profile["income"] <= scheme.get("max_income", 10**9):
-            reasons.append("fits your income level")
+    # -------------------------
+    # INCOME FIT (30%)
+    # -------------------------
+    if income <= max_income:
+        score += 30
+        reasons.append("Income eligibility satisfied")
+    else:
+        overflow = income - max_income
+        penalty = min(30, overflow / 10000)
+        score += max(0, 30 - penalty)
+        reasons.append("Income slightly above limit")
 
-    if profile.get("is_student") and "education" in scheme.get("category", "").lower():
-        reasons.append("designed for students")
+    # -------------------------
+    # PROFILE BOOST (20%)
+    # -------------------------
+    profile_weights = {
+        "student": 18,
+        "farmer": 20,
+        "job_seeker": 17,
+        "business": 15,
+        "general": 10
+    }
 
-    if profile.get("is_farmer") and "agri" in scheme.get("category", "").lower():
-        reasons.append("supports farmers")
+    score += profile_weights.get(profile, 10)
+    reasons.append(f"Profile boost: {profile}")
 
-    return "Recommended because " + ", ".join(reasons) if reasons else "General match"
+    # -------------------------
+    # SCHEME PRIORITY (10%)
+    # -------------------------
+    priority_boost = scheme.get("priority", 5)
+    score += priority_boost
+    reasons.append("Government priority boost applied")
+
+    # -------------------------
+    # FINAL NORMALIZATION
+    # -------------------------
+    confidence = max(0, min(100, round(score, 2)))
+
+    return {
+        "scheme": scheme.get("name"),
+        "score": confidence,
+        "profile": profile,
+        "reasons": reasons
+    }
+
+
+# =====================================================
+# 🧠 EXPLANATION ENGINE (UI READY AI RESPONSE)
+# =====================================================
+def generate_explanation(best: Dict[str, Any]) -> str:
+
+    if not best:
+        return "No matching schemes found."
+
+    return (
+        f"You are identified as a '{best['profile']}' profile. "
+        f"Your best matching scheme is '{best['scheme']}' "
+        f"with AI confidence score of {best['score']}/100. "
+        f"This recommendation is based on eligibility, income fit, and profile analysis."
+    )
+
+
+# =====================================================
+# 🧠 MAIN AI GOVERNMENT SCHEME BRAIN ENGINE (LEVEL 10)
+# =====================================================
+def rank_schemes(
+    user: Dict[str, Any],
+    schemes: List[Dict[str, Any]],
+    message: Optional[str] = ""
+):
+
+    profile = detect_user_profile(message or "")
+
+    results = []
+
+    for scheme in schemes:
+        results.append(score_scheme(user, scheme, profile))
+
+    # sort by AI score
+    results.sort(key=lambda x: x["score"], reverse=True)
+
+    # ranking
+    for i, r in enumerate(results):
+        r["rank"] = i + 1
+
+    best = results[0] if results else None
+
+    return {
+        "engine": "Bandhu AI Govt Scheme Brain v10",
+        "timestamp": datetime.utcnow().isoformat(),
+
+        # user understanding
+        "detected_profile": profile,
+
+        # results
+        "total_schemes_analyzed": len(schemes),
+        "ranked_schemes": results,
+
+        # best decision
+        "best_match": best,
+
+        # UI READY OUTPUT (IMPORTANT)
+        "ui_payload": {
+            "top_scheme": best,
+            "all_ranked": results
+        },
+
+        # human explanation
+        "ai_explanation": generate_explanation(best)
+    }
